@@ -40,26 +40,27 @@ def CrearEstados(Array):
     for i in range((2**len(Array))-1):
         siquiente = '{:b}'.format(int(siquiente,2)+int(1))
         Estados.append(siquiente.zfill(len(Array)))
-    print(Estados)
-    print(Array)
+    #print(Estados)
+    #print(Array)
     Posiciones= EncontrarPosiciones(Estados,Array);  
     PosicionesR= EncontrarPosicionesR(Posiciones);
-    #print(Array)
-    print('-------')
-    print(Posiciones)
-    print('*********')
-    print(PosicionesR)
+    
     #print('-------')
+    #print(Posiciones)
+    #print('*********')
+    #print(PosicionesR)
+    #print('-------')
+    
     # Punto 1
     #F.EstadoCanalF(Array,Posiciones)
 
     # Punto 2
-    F.EstadoEstadoF(Array,Posiciones,Estados)
+    #F.EstadoEstadoF(Array,Posiciones,Estados)
 
     # Punto 3
     #F.EstadoCanalP(Array,PosicionesR)
     
     # Punto 4
-    #F.EstadoCanalP(Array,PosicionesR)
+    F.EstadoEstadoP(Array,PosicionesR,Estados)
     
 CrearEstados([Entrada1,Entrada2,Entrada3]);
