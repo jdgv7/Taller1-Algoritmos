@@ -15,6 +15,21 @@ def EncontrarPosiciones(Estados,Array):
                 Posiciones[m].append(x+1);
     #print(Posiciones);
     return Posiciones;
+    
+def EncontrarPosicionesR(Posiciones):
+    arregloR = []
+
+    for sublista in Posiciones:
+        nueva_sublista = [sublista[0]]
+
+        for valor in sublista[1:]:
+            if valor > 1:
+                nuevo_valor = valor - 2
+                nueva_sublista.append(nuevo_valor)
+
+        arregloR.append(nueva_sublista)
+
+    return arregloR
 
 def CrearEstados(Array):
     Estados =[];
@@ -25,11 +40,26 @@ def CrearEstados(Array):
     for i in range((2**len(Array))-1):
         siquiente = '{:b}'.format(int(siquiente,2)+int(1))
         Estados.append(siquiente.zfill(len(Array)))
-    Posiciones= EncontrarPosiciones(Estados,Array);  
-    #F.EstadoCanalF(Array,Posiciones);
     print(Estados)
-    F.EstadoEstadoF(Array,Posiciones,Estados);
+    print(Array)
+    Posiciones= EncontrarPosiciones(Estados,Array);  
+    PosicionesR= EncontrarPosicionesR(Posiciones);
+    #print(Array)
+    print('-------')
+    print(Posiciones)
+    print('*********')
+    print(PosicionesR)
+    #print('-------')
+    # Punto 1
+    #F.EstadoCanalF(Array,Posiciones)
 
+    # Punto 2
+    F.EstadoEstadoF(Array,Posiciones,Estados)
+
+    # Punto 3
+    #F.EstadoCanalP(Array,PosicionesR)
+    
+    # Punto 4
+    #F.EstadoCanalP(Array,PosicionesR)
+    
 CrearEstados([Entrada1,Entrada2,Entrada3]);
-
-

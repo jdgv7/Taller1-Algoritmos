@@ -40,7 +40,16 @@ def EstadoEstadoF(Array,Posiciones,Estados):
     #print("En Proceso EstadoEstadoF :v")
 
 def EstadoCanalP(Array,Posiciones):
-    print("En Proceso EstadoCanalP :v")
+    for x in range(len(Posiciones)):
+        print(Posiciones[x][0]+" Sus siquientes Posiciones son: ")
+        y = 0
+        while y<len(Posiciones[x])-1 and Posiciones[x][y+1] != 30 :
+            print("siquiente elemento por posicion posicion:")
+            print(Array[0][Posiciones[x][y+1]])
+            print(Array[1][Posiciones[x][y+1]])
+            print(Array[2][Posiciones[x][y+1]])
+            y +=1
+
 
 def EstadoEstadoP(Array,Posiciones):
-    print("En Proceso EstadoEstadoP :v")
+    print("hola")
