@@ -1,5 +1,6 @@
 import FuncionesEstado as F;
 
+
 Entrada1 = [0,1,1,0,1,1,0,0,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1,0,0,0,1];
 Entrada2 = [0,0,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,1,0,1,1,0,1,1,1,1,0,0,0];
 Entrada3 = [0,1,0,1,0,1,0,1,0,1,1,0,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0];
@@ -45,14 +46,15 @@ def CrearEstados(Array):
     PosicionesR= EncontrarPosicionesR(Posiciones);
 
     
-    #print('-------')
-    #print(Posiciones)
+    # print('-------')
+    # print(Posiciones)
+    # print('-------')
     #print('*********')
     #print(PosicionesR)
     #print('-------')
     
     # Punto 1
-    #F.EstadoCanalF(Array,Posiciones)
+    F.EstadoCanalF(Array,Posiciones,len(Array))
 
     # Punto 2
     #F.EstadoEstadoF(Array,Posiciones,Estados)
@@ -60,12 +62,13 @@ def CrearEstados(Array):
     # Punto 3
     #F.EstadoCanalP(Array,PosicionesR)
     
-    print(Array)
-    print("---------")
-    print(PosicionesR)
-    print("---------")
-    print(Estados)
+    # print(Array)
+    # print("---------")
+    # print(PosicionesR)
+    # print("---------")
+    # print(Estados)
+
     # Punto 4
-    F.EstadoEstadoP(Array,PosicionesR,Estados)
+    # F.EstadoEstadoP(Array,PosicionesR,Estados)
     
 CrearEstados([Entrada1,Entrada2,Entrada3]);
