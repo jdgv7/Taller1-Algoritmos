@@ -38,7 +38,7 @@ def EstadoEstadoF(Array,Posiciones,Estados):
                   str(Array[2][Posiciones[x][y+1]]))
             y+=1;
 
-            
+# Punto 3
 def EstadoCanalP(Array,Posiciones):
     for x in range(len(Posiciones)):
         print(Posiciones[x][0]+" Sus siquientes Posiciones son: ")
@@ -50,7 +50,7 @@ def EstadoCanalP(Array,Posiciones):
             print(Array[2][Posiciones[x][y+1]])
             y +=1
 
-
+# Punto 4
 def EstadoEstadoP(Array,Posiciones,Estados):
     Estados=[["Estado",]]
     for x in range(len(Posiciones)):
@@ -68,6 +68,8 @@ def EstadoEstadoP(Array,Posiciones,Estados):
     print(Estados[5])
     print(Estados[6])
     print(Estados[7])
+    
+    nuevos = []
 
     print("---------")
     for x in range(len(Posiciones)):
@@ -77,7 +79,11 @@ def EstadoEstadoP(Array,Posiciones,Estados):
             print(str(Array[0][Posiciones[x][y+1]])+
                   str(Array[1][Posiciones[x][y+1]])+
                   str(Array[2][Posiciones[x][y+1]]))
+            nuevos.append(str(Array[0][Posiciones[x][y+1]])+
+                  str(Array[1][Posiciones[x][y+1]])+
+                  str(Array[2][Posiciones[x][y+1]]))
             y+=1;
-        print("\n")
+        print("\n");
+    print(nuevos)
         
 
