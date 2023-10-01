@@ -35,7 +35,6 @@ def mostrar_menu(Array,Posiciones,Estados,PosicionesR):
     print("2. Estado Estado F")
     print("3. Estado Canal P")
     print("4. Estado Estado P")
-    print("5. Salir")
    
     opcion = input("Selecciona una opción (1/2/3/4/5): ")
     
@@ -67,6 +66,7 @@ def CrearEstados(Array):
 
     Posiciones = EncontrarPosiciones(Estados, Array)
     PosicionesR = EncontrarPosicionesR(Posiciones)
+    PosicionesR[0].append(0)
 
     # # Punto 1
     # F.EstadoCanalF(Array,Posiciones)
@@ -75,17 +75,14 @@ def CrearEstados(Array):
     # F.EstadoEstadoF(Array,Posiciones,Estados)
 
     # # Punto 3
-    # print("\n")
-    # print(Posiciones)
-    # print("\n")
-    # print(PosicionesR)
-    print(Estados)
-    # print("\n")
+    # PosicionesR[0].append(0)
     # F.EstadoCanalP(Array, PosicionesR)
 
     # # Punto 4
     # F.EstadoEstadoP(Array,PosicionesR,Estados)
-    # mostrar_menu(Array,Posiciones,Estados,PosicionesR)
+
+    # Menu principal para dibujar los puntos
+    mostrar_menu(Array,Posiciones,Estados,PosicionesR)
 
 
 CrearEstados([Entrada1, Entrada2, Entrada3])

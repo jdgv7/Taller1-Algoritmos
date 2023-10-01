@@ -10,9 +10,7 @@ def count_estados(Posiciones):
 
 def EstadoCanalF(Array,Posiciones):
     count_positions = count_estados(Posiciones)
-    print("\n")
-    print(count_positions)
-    print("\n")
+    
     my_dic = {}
     lista1 = [[] for _ in range(len(Posiciones))]
     lista2 = [[] for _ in range(len(Posiciones))]
@@ -40,11 +38,7 @@ def EstadoCanalF(Array,Posiciones):
             clave_secundaria = elemento[0]
             nueva_lista[clave_secundaria] = elemento[1:]
         nuevo_diccionario[clave_principal] = nueva_lista
-    
-    print("\n")
-    print(nuevo_diccionario)
-    print("\n")
-
+   
     resultados = {}
     for clave_principal, subdiccionario in nuevo_diccionario.items():
         sub_resultados = {}
@@ -56,21 +50,15 @@ def EstadoCanalF(Array,Posiciones):
         division_resultados = {}
         for llave in sub_resultados:
             if llave in count_positions:
-                print(f'{llave} === {sub_resultados[llave]} / { count_positions[llave]}')
                 division_resultados[llave] = sub_resultados[llave] / count_positions[llave]
-        print("\n")
         resultados[clave_principal] = division_resultados
 
-    for data, val in resultados.items():
-        print(f'{data}:{val}')
+    # for data, val in resultados.items():
+    #     print(f'{data}:{val}')
 
-    print("\n")
-    print(count_positions)
-    print("\n")
-
-    # # Crear un DataFrame a partir del diccionario
-    # df = pd.DataFrame(resultados)
-    # print(df)
+    # Crear un DataFrame a partir del diccionario
+    df = pd.DataFrame(resultados)
+    print(df)
 # --------------------------------------------------------------------------------
 
 # Punto 2
