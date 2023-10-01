@@ -152,6 +152,4 @@ def EstadoEstadoP(Array,Posiciones,elementos):
     df = pd.DataFrame(diccionario_normalizado_porcentaje)
     df = df.sort_index(axis=0).sort_index(axis=1).transpose()
     print(df)
-    
-
 

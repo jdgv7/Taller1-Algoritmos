@@ -38,7 +38,7 @@ def mostrar_menu(Array, Posiciones, tam ,Estados, PosicionesR):
     print("3. EstadoCanalP")
     print("4. EstadoEstadoP")
 
-    opcion = input("Selecciona una opción (1/2/3/4/5): ")
+    opcion = input("Selecciona una opción (1/2/3/4): ")
 
     if opcion == "1":
         # Punto 1:
@@ -85,4 +85,3 @@ def CrearEstados(Array):
     
 #CrearEstados([Entrada1,Entrada2,Entrada3]);
 CrearEstados([Entrada1,Entrada2,Entrada3,Entrada4]);
-
