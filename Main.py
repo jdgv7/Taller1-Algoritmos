@@ -1,10 +1,9 @@
 import FuncionesEstado as F;
 
-
 Entrada1 = [0,1,1,0,1,1,0,0,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1,0,0,0,1];
 Entrada2 = [0,0,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,1,0,1,1,0,1,1,1,1,0,0,0];
 Entrada3 = [0,1,0,1,0,1,0,1,0,1,1,0,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0];
-#Entrada4 = [0,1,0,0,0,0,0,1,0,1,1,0,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0];
+Entrada4 = [0,1,0,0,0,0,0,1,0,1,1,0,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0];
 
 def EncontrarPosiciones(Estados,Array):
     Posiciones=[]
@@ -43,8 +42,9 @@ def CrearEstados(Array):
         Estados.append(siquiente.zfill(len(Array)))
     Posiciones= EncontrarPosiciones(Estados,Array);  
     PosicionesR= EncontrarPosicionesR(Posiciones);
+
     # Punto 1
-    #F.EstadoCanalF(Array,Posiciones,len(Array))
+    F.EstadoCanalF(Array,Posiciones,len(Array))
 
     # Punto 2
     #F.EstadoEstadoF(Array,Posiciones,Estados)
@@ -57,5 +57,5 @@ def CrearEstados(Array):
 
     
 #CrearEstados([Entrada1,Entrada2,Entrada3]);
-CrearEstados([Entrada1,Entrada2,Entrada3,Entrada2]);
+CrearEstados([Entrada1,Entrada2,Entrada3,Entrada4]);
 
