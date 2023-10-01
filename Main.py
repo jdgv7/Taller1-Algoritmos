@@ -31,6 +31,31 @@ def EncontrarPosicionesR(Posiciones):
 
     return arregloR
 
+def mostrar_menu(Array, Posiciones, tam ,Estados, PosicionesR):
+    print("Menu:")
+    print("1. EstadoCanalF")
+    print("2. EstadoEstadoF")
+    print("3. EstadoCanalP")
+    print("4. EstadoEstadoP")
+
+    opcion = input("Selecciona una opción (1/2/3/4/5): ")
+
+    if opcion == "1":
+        # Punto 1:
+        F.EstadoCanalF(Array, Posiciones, tam)
+    elif opcion == "2":
+        # Punto 2:
+        F.EstadoEstadoF(Array, Posiciones,Estados)
+    elif opcion == "3":
+        # Punto 3:
+        F.EstadoCanalP(Array, Posiciones, tam)
+    elif opcion == "4":
+        # Punto 4:
+        F.EstadoEstadoP(Array, PosicionesR, Estados)
+    else:
+        print("Opción no válida. Por favor, selecciona una opción válida.")
+
+
 def CrearEstados(Array):
     Estados =[];
     Estadoinicial="";
@@ -44,16 +69,18 @@ def CrearEstados(Array):
     PosicionesR= EncontrarPosicionesR(Posiciones);
 
     # Punto 1
-    F.EstadoCanalF(Array,Posiciones,len(Array))
+    # F.EstadoCanalF(Array,Posiciones,len(Array))
 
     # Punto 2
-    #F.EstadoEstadoF(Array,Posiciones,Estados)
+    # F.EstadoEstadoF(Array,Posiciones,Estados)
 
     # Punto 3
-    #F.EstadoCanalP(Array,Posiciones,len(Array))
+    # F.EstadoCanalP(Array,Posiciones,len(Array))
 
     # Punto 4
-    #F.EstadoEstadoP(Array,PosicionesR,Estados)
+    # F.EstadoEstadoP(Array,PosicionesR,Estados)
+
+    mostrar_menu(Array, Posiciones, len(Array), Estados, PosicionesR)
 
     
 #CrearEstados([Entrada1,Entrada2,Entrada3]);

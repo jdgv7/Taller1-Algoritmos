@@ -45,7 +45,6 @@ def EstadoCanalF(Array,Posiciones,tam):
 # --------------------------------------------------------------------------------
 
 #Punto 2
-
 def EstadoEstadoF(Array,Posiciones,Estados):
     Estados=[["Estado",]]
     for x in range(len(Posiciones)):
@@ -74,11 +73,14 @@ def EstadoEstadoF(Array,Posiciones,Estados):
             total_estado = len(my_dic[clave])
             valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) * 100 for elemento in my_dic['Estado']]
             diccionario_normalizado_porcentaje[clave] = valores_normalizados_porcentaje
-
-    for x in diccionario_normalizado_porcentaje.keys():
-        print(x+str(diccionario_normalizado_porcentaje[x]))
+   
+    df = pd.DataFrame(diccionario_normalizado_porcentaje)
+    df = df.sort_index(axis=0).sort_index(axis=1).transpose()
+    print(df)
     
-
+    # for x in diccionario_normalizado_porcentaje.keys():
+    #     print(x+str(diccionario_normalizado_porcentaje[x]))
+    
 # --------------------------------------------------------------------------------
 
 # Punto 3
@@ -116,7 +118,6 @@ def EstadoCanalP(Array,Posiciones,tam):
 
     print(df)
     
-
 # --------------------------------------------------------------------------------
 
 # Punto 4
@@ -148,8 +149,9 @@ def EstadoEstadoP(Array,Posiciones,elementos):
             valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) * 100 for elemento in my_dic['Estado']]
             diccionario_normalizado_porcentaje[clave] = valores_normalizados_porcentaje
 
-    for x in diccionario_normalizado_porcentaje.keys():
-        print(x+str(diccionario_normalizado_porcentaje[x]))
+    df = pd.DataFrame(diccionario_normalizado_porcentaje)
+    df = df.sort_index(axis=0).sort_index(axis=1).transpose()
+    print(df)
     
 
 
