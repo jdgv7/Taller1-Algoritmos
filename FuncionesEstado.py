@@ -1,118 +1,155 @@
 import pandas as pd
 
-
-def count_estados(Posiciones):
-    diccionario_Posiciones = {}
-    for sublista in Posiciones:
-        llave = sublista[0]
-        leng_sub = len(sublista) - 1
-        diccionario_Posiciones[llave] = leng_sub
-    return diccionario_Posiciones
-
-# Punto 1
-def EstadoCanalF(Array, Posiciones):
-    count_positions = count_estados(Posiciones)
-
+def EstadoCanalF(Array,Posiciones,tam):
     my_dic = {}
-    lista1 = [[] for _ in range(len(Posiciones))]
-    lista2 = [[] for _ in range(len(Posiciones))]
-    lista3 = [[] for _ in range(len(Posiciones))]
+    listas = []
+    #Se genera un Array con el numero de entradas la cantidad de estados posibles
+    for x in range(tam):
+        listas.append([[] for _ in range(len(Posiciones))])
 
-    for x in range(len(Posiciones)):
+    for x in range(len(Posiciones)):      
         y = 0
-        lista1[x].append(Posiciones[x][0])
-        lista2[x].append(Posiciones[x][0])
-        lista3[x].append(Posiciones[x][0])
-        while y < len(Posiciones[x])-1 and Posiciones[x][y+1] != 30:
-            lista1[x].append(Array[0][Posiciones[x][y+1]])
-            lista2[x].append(Array[1][Posiciones[x][y+1]])
-            lista3[x].append(Array[2][Posiciones[x][y+1]])
-            y += 1
+        #Se le ingresa a cada uno de los elementos un estado en el numero de entradas
+        for z in range(tam):
+            listas[z][x].append(Posiciones[x][0])
+        #Se recorre todos los elementos excepto el ultimo elemento ya que el ultimo elemento no puede tener estado futuro
+        while y < len(Posiciones[x])-1 and Posiciones[x][y+1] != len(Array[0]):
+            #Se recoore todos las entradas
+            for i in range(tam):
+                # se le ingresa el valor siquiente del canal i para cada estado
+                listas[i][x].append(Array[i][Posiciones[x][y+1]])
+            y +=1
 
-    my_dic["A"] = lista1
-    my_dic["B"] = lista2
-    my_dic["C"] = lista3
+    #se genera un diccioonario con la letra correspondiente de cada entrada 
+    for i in range(len(listas)):
+        my_dic[chr(i + 65)]=listas[i]
 
-    nuevo_diccionario = {}
-    for clave_principal, lista_secundaria in my_dic.items():
-        nueva_lista = {}
-        for elemento in lista_secundaria:
-            clave_secundaria = elemento[0]
-            nueva_lista[clave_secundaria] = elemento[1:]
-        nuevo_diccionario[clave_principal] = nueva_lista
+    PorporFutu_Dict = {}
 
-    resultados = {}
-    for clave_principal, subdiccionario in nuevo_diccionario.items():
-        sub_resultados = {}
-        for subllave, lista in subdiccionario.items():
-            cantidad_de_unos = lista.count(1)
-            sub_resultados[subllave] = cantidad_de_unos
-        # print(sub_resultados)
-        # print("\n")
-        division_resultados = {}
-        for llave in sub_resultados:
-            if llave in count_positions:
-                division_resultados[llave] = sub_resultados[llave] / count_positions[llave]
-        resultados[clave_principal] = division_resultados
-
-    # for data, val in resultados.items():
-    #     print(f'{data}:{val}')
-
+    for key, value in my_dic.items():
+        proporciones = []
+        for sublist in value:
+            Elementos = len(sublist) - 1  # Restamos 1 para no contar el primer elemento
+            total_unos = sum(sublist[1:])  # Sumamos todos los unos en la sublista
+            proporcion = total_unos / Elementos if Elementos > 0 else 0  # Evitamos la división por cero
+            proporciones.append([sublist[0], proporcion])
+        PorporFutu_Dict[key] = proporciones
     # Crear un DataFrame a partir del diccionario
-    df = pd.DataFrame(resultados)
-    print(df)
-# --------------------------------------------------------------------------------
+    df = pd.DataFrame({key: [val[1] for val in value] for key, value in PorporFutu_Dict.items()}, index=[val[0] for val in next(iter(PorporFutu_Dict.values()))])
 
-# Punto 2
-def EstadoEstadoF(Array, Posiciones, Estados):
-    lista = []
-    my_dic = {}
-    for x in range(len(Posiciones)):
-        y = 0
-        while y < len(Posiciones[x])-1 and Posiciones[x][y+1] != 30:
-            data = str(Array[0][Posiciones[x][y+1]]) + str(Array[1][Posiciones[x][y+1]]) + str(Array[2][Posiciones[x][y+1]])
-            lista.append(data)
-            y += 1
-        my_dic[Posiciones[x][0]] = lista
-        lista = []
-      
-    # Diccionario resultante
-    diccionario_r = {}
+    # Renombrar las columnas con los nombres de las claves
+    df.columns = PorporFutu_Dict.keys()
 
-    # Recorremos el diccionario original
-    for estado, sublistas in my_dic.items():
-        temp_count = {}  # Diccioanrio temporal
-        for sublista in sublistas:
-            if sublista in temp_count:
-                temp_count[sublista] += 1
-            else:
-                temp_count[sublista] = 1
-        for est in Estados:
-            if est not in temp_count:
-                temp_count[est] = 0
-        diccionario_r[estado] = temp_count
-
-    diccionario_Posiciones = count_estados(Posiciones)
-
-    result_dict = {}
-
-    for key2, value2 in diccionario_Posiciones.items():
-        if key2 in diccionario_r:
-            result_dict[key2] = {}
-            for key1, value1 in diccionario_r[key2].items():
-                result_dict[key2][key1] = value1 / value2
-
-    # Crear un DataFrame a partir del diccionario
-    df = pd.DataFrame(result_dict)
-    df = df.sort_index(axis=0).sort_index(axis=1).transpose()
     print(df)
 
 # --------------------------------------------------------------------------------
+
+#Punto 2
+
+def EstadoEstadoF(Array,Posiciones,Estados):
+    Estados=[["Estado",]]
+    for x in range(len(Posiciones)):
+        Estados[0].append(Posiciones[x][0])
+        Estados.append([Posiciones[x][0]])
+    for x in range(len(Posiciones)):
+        y=1
+        while y<len(Posiciones[x]):
+            if Posiciones[x][y] != len(Array[0]):
+                agregacion = ""
+                for z in range(len(Array)):
+                     agregacion+=str(Array[z][Posiciones[x][y]])
+                Estados[x+1].append(agregacion)
+            y+=1
+
+    my_dic={}
+    for fila in Estados:
+        estado = fila[0]  
+        valores = fila[1:]  
+        my_dic[estado] = valores
+
+    diccionario_normalizado_porcentaje = {}
+
+    for clave, lista_elementos in my_dic.items():
+        if clave != 'Estado' and len(my_dic[clave]) !=0:
+            total_estado = len(my_dic[clave])
+            valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) * 100 for elemento in my_dic['Estado']]
+            diccionario_normalizado_porcentaje[clave] = valores_normalizados_porcentaje
+
+    for x in diccionario_normalizado_porcentaje.keys():
+        print(x+str(diccionario_normalizado_porcentaje[x]))
+    
+
+# --------------------------------------------------------------------------------
+
 # Punto 3
-def EstadoCanalP(Array, Posiciones):
-    EstadoCanalF(Array, Posiciones)
+def EstadoCanalP(Array,Posiciones,tam):
+    my_dic = {}
+    listas = []
+    for x in range(tam):
+        listas.append([[] for _ in range(len(Posiciones))])
+    for x in range(len(Posiciones)):      
+        y = 2
+        for z in range(tam):
+            listas[z][x].append(Posiciones[x][0])
+        while y < len(Posiciones[x])+1:
+            if(Posiciones[x][y-1]!=1):
+                for i in range(tam):
+                    listas[i][x].append(Array[i][Posiciones[x][y-1]-2])
+            y +=1
+    for i in range(len(listas)):
+        my_dic[chr(i + 65)]=listas[i]
+
+    proporcion_dict = {}
+
+    for key, value in my_dic.items():
+        proporciones = []
+        for sublist in value:
+            total_elementos = len(sublist) - 1  # Restamos 1 para no contar el primer elemento
+            total_unos = sum(sublist[1:])  # Sumamos todos los unos en la sublista
+            proporcion = total_unos / total_elementos if total_elementos > 0 else 0  # Evitamos la división por cero
+            proporciones.append([sublist[0], proporcion])
+        proporcion_dict[key] = proporciones
+
+    df = pd.DataFrame({key: [val[1] for val in value] for key, value in proporcion_dict.items()}, index=[val[0] for val in next(iter(proporcion_dict.values()))])
+
+    df.columns = proporcion_dict.keys()
+
+    print(df)
+    
 
 # --------------------------------------------------------------------------------
+
 # Punto 4
-def EstadoEstadoP(Array, Posiciones, Estados):
-    EstadoEstadoF(Array, Posiciones, Estados)
+def EstadoEstadoP(Array,Posiciones,elementos):
+    Estados=[["Estado",]]
+    for x in range(len(Posiciones)):
+        Estados[0].append(Posiciones[x][0])
+        Estados.append([Posiciones[x][0]])
+
+    for x in range(len(Estados)-1):
+        y=0
+        while y<len(Posiciones[x])-1 and  Posiciones[x][y+1] != 30:
+            agregacion="";
+            for z in range(len(Array)):
+                agregacion+=str(Array[z][Posiciones[x][y+1]])
+            Estados[x+1].append(agregacion)
+            y+=1;
+
+    my_dic={}
+    for fila in Estados:
+        estado = fila[0]  
+        valores = fila[1:]  
+        my_dic[estado] = valores
+    diccionario_normalizado_porcentaje = {}
+
+    for clave, lista_elementos in my_dic.items():
+        if clave != 'Estado' and len(my_dic[clave]) !=0:
+            total_estado = len(my_dic[clave])
+            valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) * 100 for elemento in my_dic['Estado']]
+            diccionario_normalizado_porcentaje[clave] = valores_normalizados_porcentaje
+
+    for x in diccionario_normalizado_porcentaje.keys():
+        print(x+str(diccionario_normalizado_porcentaje[x]))
+    
+
+
