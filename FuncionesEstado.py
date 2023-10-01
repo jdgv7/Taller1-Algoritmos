@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def count_estados(Posiciones):
     diccionario_Posiciones = {}
     for sublista in Posiciones:
@@ -8,15 +9,16 @@ def count_estados(Posiciones):
         diccionario_Posiciones[llave] = leng_sub
     return diccionario_Posiciones
 
-def EstadoCanalF(Array,Posiciones):
+# Punto 1
+def EstadoCanalF(Array, Posiciones):
     count_positions = count_estados(Posiciones)
-    
+
     my_dic = {}
     lista1 = [[] for _ in range(len(Posiciones))]
     lista2 = [[] for _ in range(len(Posiciones))]
     lista3 = [[] for _ in range(len(Posiciones))]
 
-    for x in range(len(Posiciones)):      
+    for x in range(len(Posiciones)):
         y = 0
         lista1[x].append(Posiciones[x][0])
         lista2[x].append(Posiciones[x][0])
@@ -26,7 +28,7 @@ def EstadoCanalF(Array,Posiciones):
             lista2[x].append(Array[1][Posiciones[x][y+1]])
             lista3[x].append(Array[2][Posiciones[x][y+1]])
             y += 1
-    
+
     my_dic["A"] = lista1
     my_dic["B"] = lista2
     my_dic["C"] = lista3
@@ -38,7 +40,7 @@ def EstadoCanalF(Array,Posiciones):
             clave_secundaria = elemento[0]
             nueva_lista[clave_secundaria] = elemento[1:]
         nuevo_diccionario[clave_principal] = nueva_lista
-   
+
     resultados = {}
     for clave_principal, subdiccionario in nuevo_diccionario.items():
         sub_resultados = {}
@@ -62,24 +64,24 @@ def EstadoCanalF(Array,Posiciones):
 # --------------------------------------------------------------------------------
 
 # Punto 2
-def EstadoEstadoF(Array,Posiciones,Estados):
+def EstadoEstadoF(Array, Posiciones, Estados):
     lista = []
     my_dic = {}
-    for x in range(len(Posiciones)):        
-        y=0
+    for x in range(len(Posiciones)):
+        y = 0
         while y < len(Posiciones[x])-1 and Posiciones[x][y+1] != 30:
-            data = str(Array[0][Posiciones[x][y+1]])+ str(Array[1][Posiciones[x][y+1]])+ str(Array[2][Posiciones[x][y+1]])
+            data = str(Array[0][Posiciones[x][y+1]]) + str(Array[1][Posiciones[x][y+1]]) + str(Array[2][Posiciones[x][y+1]])
             lista.append(data)
-            y+=1;
+            y += 1
         my_dic[Posiciones[x][0]] = lista
         lista = []
-    
+      
     # Diccionario resultante
     diccionario_r = {}
 
     # Recorremos el diccionario original
     for estado, sublistas in my_dic.items():
-        temp_count = {} # Diccioanrio temporal
+        temp_count = {}  # Diccioanrio temporal
         for sublista in sublistas:
             if sublista in temp_count:
                 temp_count[sublista] += 1
@@ -89,9 +91,9 @@ def EstadoEstadoF(Array,Posiciones,Estados):
             if est not in temp_count:
                 temp_count[est] = 0
         diccionario_r[estado] = temp_count
-   
+
     diccionario_Posiciones = count_estados(Posiciones)
-   
+
     result_dict = {}
 
     for key2, value2 in diccionario_Posiciones.items():
@@ -107,9 +109,10 @@ def EstadoEstadoF(Array,Posiciones,Estados):
 
 # --------------------------------------------------------------------------------
 # Punto 3
-def EstadoCanalP(Array,Posiciones):
-    EstadoCanalF(Array,Posiciones)
+def EstadoCanalP(Array, Posiciones):
+    EstadoCanalF(Array, Posiciones)
+
 # --------------------------------------------------------------------------------
 # Punto 4
-def EstadoEstadoP(Array,Posiciones,Estados):
-    EstadoEstadoF(Array,Posiciones,Estados)
+def EstadoEstadoP(Array, Posiciones, Estados):
+    EstadoEstadoF(Array, Posiciones, Estados)

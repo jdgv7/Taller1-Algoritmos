@@ -2,7 +2,8 @@ import FuncionesEstado as F
 
 Entrada1 = [0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1]
 Entrada2 = [0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0]
-Entrada3 = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1,0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
+Entrada3 = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
+
 
 def EncontrarPosiciones(Estados, Array):
     Posiciones = []
@@ -29,26 +30,26 @@ def EncontrarPosicionesR(Posiciones):
     return arregloR
 
 
-def mostrar_menu(Array,Posiciones,Estados,PosicionesR):
+def mostrar_menu(Array, Posiciones, Estados, PosicionesR):
     print("Menu:")
-    print("1. Estado Canal F")
-    print("2. Estado Estado F")
-    print("3. Estado Canal P")
-    print("4. Estado Estado P")
-   
+    print("1. EstadoCanalF")
+    print("2. EstadoEstadoF")
+    print("3. EstadoCanalP")
+    print("4. EstadoEstadoP")
+
     opcion = input("Selecciona una opción (1/2/3/4/5): ")
-    
+
     if opcion == "1":
-        # Punto 1: Llama a la función correspondiente
+        # Punto 1:
         F.EstadoCanalF(Array, Posiciones)
     elif opcion == "2":
-        # Punto 2: Llama a la función correspondiente
+        # Punto 2:
         F.EstadoEstadoF(Array, Posiciones, Estados)
     elif opcion == "3":
-        # Punto 3: Llama a la función correspondiente
+        # Punto 3:
         F.EstadoCanalP(Array, PosicionesR)
     elif opcion == "4":
-        # Punto 4: Llama a la función correspondiente
+        # Punto 4:
         F.EstadoEstadoP(Array, PosicionesR, Estados)
     else:
         print("Opción no válida. Por favor, selecciona una opción válida.")
@@ -82,8 +83,7 @@ def CrearEstados(Array):
     # F.EstadoEstadoP(Array,PosicionesR,Estados)
 
     # Menu principal para dibujar los puntos
-    mostrar_menu(Array,Posiciones,Estados,PosicionesR)
+    mostrar_menu(Array, Posiciones, Estados, PosicionesR)
 
 
 CrearEstados([Entrada1, Entrada2, Entrada3])
-
