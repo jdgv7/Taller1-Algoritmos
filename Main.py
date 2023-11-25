@@ -1,10 +1,22 @@
 import FuncionesEstado as F;
-
+import pandas as pd
 
 Entrada1 = [0,1,1,0,1,1,0,0,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1,0,0,0,1];
 Entrada2 = [0,0,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,1,0,1,1,0,1,1,1,1,0,0,0];
 Entrada3 = [0,1,0,1,0,1,0,1,0,1,1,0,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0];
 #Entrada4 = [0,1,0,0,0,0,0,1,0,1,1,0,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0];
+
+def CargarDatos():
+    dataframe1 = pd.read_excel('Muestra7-8.xlsx', usecols="B:D",skiprows=[0,1],sheet_name="Muestra 8")
+
+    dataframe1 = dataframe1.values.tolist()
+    nuevos_arrays = [[] for _ in range(len(dataframe1[0]))]
+
+    for x in range(len(dataframe1)):
+        for y in range(len(dataframe1[0])):
+            nuevos_arrays[y].append(dataframe1[x][y])
+
+    return[nuevos_arrays]
 
 def EncontrarPosiciones(Estados,Array):
     Posiciones=[]
@@ -33,6 +45,7 @@ def EncontrarPosicionesR(Posiciones):
     return arregloR
 
 def CrearEstados(Array):
+    Porcentajes ={};
     Estados =[];
     Estadoinicial="";
     Estadoinicial = Estadoinicial.zfill(len(Array));
@@ -44,18 +57,17 @@ def CrearEstados(Array):
     Posiciones= EncontrarPosiciones(Estados,Array);  
     PosicionesR= EncontrarPosicionesR(Posiciones);
     # Punto 1
-    #F.EstadoCanalF(Array,Posiciones,len(Array))
+    #Porcentajes = F.EstadoCanalF(Array,Posiciones,len(Array))
 
     # Punto 2
-    #F.EstadoEstadoF(Array,Posiciones,Estados)
+    #Porcentajes = F.EstadoEstadoF(Array,Posiciones,Estados)
 
     # Punto 3
-    #F.EstadoCanalP(Array,Posiciones,len(Array))
+    #Porcentajes = F.EstadoCanalP(Array,Posiciones,len(Array))
 
     # Punto 4
-    #F.EstadoEstadoP(Array,PosicionesR,Estados)
-
-    
+    Porcentajes = F.EstadoEstadoP(Array,PosicionesR,Estados)
+    print(F.DivisionElementos("ABC/A=0",Porcentajes))
+CrearEstados(CargarDatos()[0]);
 #CrearEstados([Entrada1,Entrada2,Entrada3]);
-CrearEstados([Entrada1,Entrada2,Entrada3,Entrada2]);
 
