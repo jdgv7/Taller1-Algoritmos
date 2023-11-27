@@ -1,10 +1,6 @@
 import FuncionesEstado as F;
 import pandas as pd
-
-Entrada1 = [0,1,1,0,1,1,0,0,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1,0,0,0,1];
-Entrada2 = [0,0,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,1,0,1,1,0,1,1,1,1,0,0,0];
-Entrada3 = [0,1,0,1,0,1,0,1,0,1,1,0,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0];
-#Entrada4 = [0,1,0,0,0,0,0,1,0,1,1,0,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0];
+import matplotlib.pyplot as plt
 
 def CargarDatos():
     dataframe1 = pd.read_excel('Muestra7-8.xlsx', usecols="B:D",skiprows=[0,1],sheet_name="Muestra 8")
@@ -31,7 +27,6 @@ def EncontrarPosiciones(Estados,Array):
     
 def EncontrarPosicionesR(Posiciones):
     arregloR = []
-
     for sublista in Posiciones:
         nueva_sublista = [sublista[0]]
 
@@ -56,18 +51,24 @@ def CrearEstados(Array):
         Estados.append(siquiente.zfill(len(Array)))
     Posiciones= EncontrarPosiciones(Estados,Array);  
     PosicionesR= EncontrarPosicionesR(Posiciones);
-    # Punto 1
-    #Porcentajes = F.EstadoCanalF(Array,Posiciones,len(Array))
-
-    # Punto 2
-    #Porcentajes = F.EstadoEstadoF(Array,Posiciones,Estados)
-
-    # Punto 3
-    #Porcentajes = F.EstadoCanalP(Array,Posiciones,len(Array))
-
-    # Punto 4
+   
     Porcentajes = F.EstadoEstadoP(Array,PosicionesR,Estados)
-    print(F.DivisionElementos("ABC/A=0",Porcentajes))
-CrearEstados(CargarDatos()[0]);
-#CrearEstados([Entrada1,Entrada2,Entrada3]);
+    A = F.DivisionElementos("AB/A=0",Porcentajes)
+    
+    print(A)
 
+    # # ------------- GRAFICAS
+    # # B = ['000', '001', '010', '011', '100', '101', '110', '111']
+    # B = ['00', '01', '10', '11']
+    
+    # # Crear un DataFrame de Pandas
+    # df = pd.DataFrame({'Probabilidades': A, 'Estados': B})
+
+    # # Graficar con Matplotlib
+    # plt.bar(df['Estados'], df['Probabilidades'])
+    # plt.xlabel('Estados')
+    # plt.ylabel('Probabilidades')
+    # plt.title('Probabilidades para cada Estado')
+    # plt.show()
+
+CrearEstados(CargarDatos()[0]);

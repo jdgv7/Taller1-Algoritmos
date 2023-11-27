@@ -170,11 +170,8 @@ def Multiplicar(Multiplicadores):
     for x,y in  Multiplicadores.items():
         tabla.append(Multiplicadores[x])
     if(len(tabla)==3):
-        print("Entro")
         combinaciones = list(product(*tabla))
-
         resultados = [round(prod[0] * prod[1] * prod[2], 2)/10000 for prod in combinaciones]
-
         return resultados
     else:
         resultados = [round((x * y), 2) for x in tabla[0] for y in tabla[1]]

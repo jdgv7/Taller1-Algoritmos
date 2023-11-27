@@ -41,7 +41,7 @@ def EstadoCanalF(Array,Posiciones,tam):
     # Renombrar las columnas con los nombres de las claves
     df.columns = PorporFutu_Dict.keys()
 
-    print(df)
+    # print(df)
     return(PorporFutu_Dict)
 # --------------------------------------------------------------------------------
 
@@ -117,8 +117,8 @@ def EstadoCanalP(Array,Posiciones,tam):
     df = pd.DataFrame({key: [val[1] for val in value] for key, value in proporcion_dict.items()}, index=[val[0] for val in next(iter(proporcion_dict.values()))])
 
     df.columns = proporcion_dict.keys()
-
-    print(df)
+    
+    # print(df)
     return(proporcion_dict)
     
 
@@ -155,8 +155,9 @@ def EstadoEstadoP(Array,Posiciones,elementos):
             valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) * 100 for elemento in my_dic['Estado']]
             diccionario_normalizado_porcentaje[clave] = valores_normalizados_porcentaje
 
-    for x in diccionario_normalizado_porcentaje.keys():
-        print(x+str(diccionario_normalizado_porcentaje[x]))
+    # for x in diccionario_normalizado_porcentaje.keys():
+    #     print(x+str(diccionario_normalizado_porcentaje[x]))
+    
     return(diccionario_normalizado_porcentaje)
     
 #Division De elemento
@@ -166,11 +167,11 @@ def DivisionElementos(Operacion,Porcentajes):
     ElementosFuturos= Operacion[0]
     ElementosPresente=Operacion[1].split("=")[0]
     ValorPresente=Operacion[1].split("=")[1]
-    print("Presente = "+ElementosPresente+", Valor = "+ValorPresente+", Futuro = "+ElementosFuturos)
+    # print("Presente = "+ElementosPresente+", Valor = "+ValorPresente+", Futuro = "+ElementosFuturos)
     Casos = {}
     if(len(ElementosPresente)==3 and len(ElementosFuturos)==3):
         #print(Porcentajes[ValorPresente])
-        print(Porcentajes)
+        # print(Porcentajes)
         return(Porcentajes[ValorPresente])
     else:
         if(len(ElementosFuturos)!=3 and len(ElementosPresente)==3):
