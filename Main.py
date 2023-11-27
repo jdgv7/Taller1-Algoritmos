@@ -53,22 +53,29 @@ def CrearEstados(Array):
     PosicionesR= EncontrarPosicionesR(Posiciones);
    
     Porcentajes = F.EstadoEstadoP(Array,PosicionesR,Estados)
-    A = F.DivisionElementos("AB/A=0",Porcentajes)
+    A = F.DivisionElementos("ABC/A=0",Porcentajes)
     
-    print(A)
+    # ------------- GRAFICA
+    B = ['000', '001', '010', '011', '100', '101', '110', '111']
 
-    # # ------------- GRAFICAS
-    # # B = ['000', '001', '010', '011', '100', '101', '110', '111']
-    # B = ['00', '01', '10', '11']
-    
-    # # Crear un DataFrame de Pandas
-    # df = pd.DataFrame({'Probabilidades': A, 'Estados': B})
+    # Crear un DataFrame de Pandas
+    df = pd.DataFrame({'Probabilidades': A, 'Estados': B})
 
-    # # Graficar con Matplotlib
-    # plt.bar(df['Estados'], df['Probabilidades'])
-    # plt.xlabel('Estados')
-    # plt.ylabel('Probabilidades')
-    # plt.title('Probabilidades para cada Estado')
-    # plt.show()
+    # Colores para las barras
+    colores = ['blue', 'green', 'red', 'purple', 'orange', 'brown', 'pink', 'gray']
+
+    # Graficar con Matplotlib
+    fig, ax = plt.subplots()
+    barras = ax.bar(df['Estados'], df['Probabilidades'], color=colores)
+
+    # Mostrar las probabilidades dentro de las barras
+    for bar, prob in zip(barras, A):
+        height = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width() / 2, height, f'{prob:.2f}', ha='center', va='bottom')
+
+    plt.xlabel('Estados')
+    plt.ylabel('Probabilidades')
+    plt.title('Grafica de las probabilidades')
+    plt.show()
 
 CrearEstados(CargarDatos()[0]);
