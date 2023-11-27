@@ -1,4 +1,5 @@
 import pandas as pd
+import Exclusiones as E
 
 def EstadoCanalF(Array,Posiciones,tam):
     my_dic = {}
@@ -40,8 +41,8 @@ def EstadoCanalF(Array,Posiciones,tam):
     # Renombrar las columnas con los nombres de las claves
     df.columns = PorporFutu_Dict.keys()
 
-    print(df)
-
+    # print(df)
+    return(PorporFutu_Dict)
 # --------------------------------------------------------------------------------
 
 #Punto 2
@@ -73,14 +74,11 @@ def EstadoEstadoF(Array,Posiciones,Estados):
             total_estado = len(my_dic[clave])
             valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) * 100 for elemento in my_dic['Estado']]
             diccionario_normalizado_porcentaje[clave] = valores_normalizados_porcentaje
-   
-    df = pd.DataFrame(diccionario_normalizado_porcentaje)
-    df = df.sort_index(axis=0).sort_index(axis=1).transpose()
-    print(df)
-    
-    # for x in diccionario_normalizado_porcentaje.keys():
-    #     print(x+str(diccionario_normalizado_porcentaje[x]))
-    
+
+    for x in diccionario_normalizado_porcentaje.keys():
+        print(x+str(diccionario_normalizado_porcentaje[x]))
+    return(diccionario_normalizado_porcentaje)
+
 # --------------------------------------------------------------------------------
 
 # Punto 3
@@ -97,6 +95,9 @@ def EstadoCanalP(Array,Posiciones,tam):
             if(Posiciones[x][y-1]!=1):
                 for i in range(tam):
                     listas[i][x].append(Array[i][Posiciones[x][y-1]-2])
+            else:
+                for i in range(tam):
+                    listas[i][x].append(0)
             y +=1
     for i in range(len(listas)):
         my_dic[chr(i + 65)]=listas[i]
@@ -115,9 +116,11 @@ def EstadoCanalP(Array,Posiciones,tam):
     df = pd.DataFrame({key: [val[1] for val in value] for key, value in proporcion_dict.items()}, index=[val[0] for val in next(iter(proporcion_dict.values()))])
 
     df.columns = proporcion_dict.keys()
-
-    print(df)
     
+    # print(df)
+    return(proporcion_dict)
+    
+
 # --------------------------------------------------------------------------------
 
 # Punto 4
@@ -129,13 +132,15 @@ def EstadoEstadoP(Array,Posiciones,elementos):
 
     for x in range(len(Estados)-1):
         y=0
+        if y==len(Posiciones[x])-1:
+            for x in range(len(Estados)-1):
+                Estados[x+1].append(0.0)
         while y<len(Posiciones[x])-1 and  Posiciones[x][y+1] != 30:
             agregacion="";
             for z in range(len(Array)):
                 agregacion+=str(Array[z][Posiciones[x][y+1]])
             Estados[x+1].append(agregacion)
             y+=1;
-
     my_dic={}
     for fila in Estados:
         estado = fila[0]  
@@ -149,7 +154,33 @@ def EstadoEstadoP(Array,Posiciones,elementos):
             valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) * 100 for elemento in my_dic['Estado']]
             diccionario_normalizado_porcentaje[clave] = valores_normalizados_porcentaje
 
-    df = pd.DataFrame(diccionario_normalizado_porcentaje)
-    df = df.sort_index(axis=0).sort_index(axis=1).transpose()
-    print(df)
+    # for x in diccionario_normalizado_porcentaje.keys():
+    #     print(x+str(diccionario_normalizado_porcentaje[x]))
+    
+    return(diccionario_normalizado_porcentaje)
+    
+#Division De elemento
 
+def DivisionElementos(Operacion,Porcentajes):
+    Operacion = Operacion.split("/")
+    ElementosFuturos= Operacion[0]
+    ElementosPresente=Operacion[1].split("=")[0]
+    ValorPresente=Operacion[1].split("=")[1]
+    # print("Presente = "+ElementosPresente+", Valor = "+ValorPresente+", Futuro = "+ElementosFuturos)
+    Casos = {}
+    if(len(ElementosPresente)==3 and len(ElementosFuturos)==3):
+        #print(Porcentajes[ValorPresente])
+        # print(Porcentajes)
+        return(Porcentajes[ValorPresente])
+    else:
+        if(len(ElementosFuturos)!=3 and len(ElementosPresente)==3):
+            Casos=E.ExcluirFuturo(ElementosFuturos,Porcentajes)
+            #print(Casos[ValorPresente])
+            return(Casos[ValorPresente])
+        elif(len(ElementosPresente)!=3):
+            Final=E.ExcluirPresente(Porcentajes,ElementosFuturos,ElementosPresente,ValorPresente)
+            #print(Final)
+            return(Final)
+        else:
+            #print(Casos[ValorPresente])
+            return(Casos[ValorPresente])
