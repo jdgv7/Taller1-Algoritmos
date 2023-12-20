@@ -67,7 +67,7 @@ def CrearEstados(Array):
 
     # Punto 4
     Porcentajes = F.EstadoEstadoP(Array,PosicionesR,Estados)
-    print(F.DivisionElementos("ABC/A=0",Porcentajes))
+    print(F.DivisionElementos("ABC/0",Porcentajes))
 CrearEstados(CargarDatos()[0]);
 #CrearEstados([Entrada1,Entrada2,Entrada3]);
 

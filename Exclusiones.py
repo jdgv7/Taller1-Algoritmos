@@ -182,3 +182,18 @@ def Multiplicar(Multiplicadores):
         for x in range(len(resultados)):
             resultados[x]=resultados[x]/100
         return resultados
+
+def FuturoCero(Presente):
+    print('Futuro De Cero de '+Presente)
+    
+def PresenteCero(Futuro):
+    Resultados ={}
+    Final = {}
+    for x in range(len(Futuro['000'])):
+        Resultados[str(x)] = 0
+    for x in Futuro:
+        for y in range(len(Futuro[x])):
+            Resultados[str(y)] += Futuro[x][y]
+    for x in Resultados:
+        Resultados[str(x)] = Resultados[x]/8
+    return(Resultados)

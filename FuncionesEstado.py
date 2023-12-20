@@ -164,16 +164,30 @@ def EstadoEstadoP(Array,Posiciones,elementos):
 def DivisionElementos(Operacion,Porcentajes):
     Operacion = Operacion.split("/")
     ElementosFuturos= Operacion[0]
-    ElementosPresente=Operacion[1].split("=")[0]
-    ValorPresente=Operacion[1].split("=")[1]
-    print("Presente = "+ElementosPresente+", Valor = "+ValorPresente+", Futuro = "+ElementosFuturos)
+    print(Operacion[1]+' / '+Operacion[0])
+    if(Operacion[1]!=str(0) and Operacion[0]!=str(0)):
+        ElementosPresente=Operacion[1].split("=")[0]
+        ValorPresente=Operacion[1].split("=")[1]
+    else:
+        ElementosPresente = Operacion[1]
+        ValorPresente = Operacion[1]
+    #print("Presente = "+ElementosPresente+", Valor = "+ValorPresente+", Futuro = "+ElementosFuturos)
     Casos = {}
     if(len(ElementosPresente)==3 and len(ElementosFuturos)==3):
         #print(Porcentajes[ValorPresente])
         print(Porcentajes)
         return(Porcentajes[ValorPresente])
     else:
-        if(len(ElementosFuturos)!=3 and len(ElementosPresente)==3):
+        print(ElementosFuturos+' / '+ElementosPresente)
+        if(ElementosPresente == str(0)):
+            if(len(ElementosFuturos)==3):
+                return(E.PresenteCero(Porcentajes))
+            else:
+                Final=E.ExcluirFuturo(ElementosFuturos,Porcentajes)
+                return(E.PresenteCero(Final))
+        elif(ElementosFuturos== str(0)):
+            E.FuturoCero(ElementosPresente)
+        elif(len(ElementosFuturos)!=3 and len(ElementosPresente)==3):
             Casos=E.ExcluirFuturo(ElementosFuturos,Porcentajes)
             #print(Casos[ValorPresente])
             return(Casos[ValorPresente])
