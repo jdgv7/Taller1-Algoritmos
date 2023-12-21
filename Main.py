@@ -1,6 +1,8 @@
 import FuncionesEstado as F;
 import pandas as pd
 import matplotlib.pyplot as plt
+import pyphi
+import numpy as np
 
 def CargarDatos():
     dataframe1 = pd.read_excel('Muestra7-8.xlsx', usecols="B:D",skiprows=[0,1],sheet_name="Muestra 8")
@@ -11,7 +13,7 @@ def CargarDatos():
     for x in range(len(dataframe1)):
         for y in range(len(dataframe1[0])):
             nuevos_arrays[y].append(dataframe1[x][y])
-
+    
     return[nuevos_arrays]
 
 def EncontrarPosiciones(Estados,Array):
@@ -39,31 +41,6 @@ def EncontrarPosicionesR(Posiciones):
 
     return arregloR
 
-# def mostrar_menu(Array, Posiciones, tam ,Estados, PosicionesR):
-#     print("Menu:")
-#     print("1. EstadoCanalF")
-#     print("2. EstadoEstadoF")
-#     print("3. EstadoCanalP")
-#     print("4. EstadoEstadoP")
-
-#     opcion = input("Selecciona una opción (1/2/3/4): ")
-
-#     if opcion == "1":
-#         # Punto 1:
-#         F.EstadoCanalF(Array, Posiciones, tam)
-#     elif opcion == "2":
-#         # Punto 2:
-#         F.EstadoEstadoF(Array, Posiciones,Estados)
-#     elif opcion == "3":
-#         # Punto 3:
-#         F.EstadoCanalP(Array, Posiciones, tam)
-#     elif opcion == "4":
-#         # Punto 4:
-#         F.EstadoEstadoP(Array, PosicionesR, Estados)
-#     else:
-#         print("Opción no válida. Por favor, selecciona una opción válida.")
-
-
 def CrearEstados(Array):
     Porcentajes ={};
     Estados =[];
@@ -77,30 +54,68 @@ def CrearEstados(Array):
     Posiciones= EncontrarPosiciones(Estados,Array);  
     PosicionesR= EncontrarPosicionesR(Posiciones);
    
-    Porcentajes = F.EstadoEstadoP(Array,PosicionesR,Estados)
-    A = F.DivisionElementos("ABC/A=0",Porcentajes)
+    Porcentajes = F.EstadoEstadoF(Array,PosicionesR,Estados)
+         
+    # Convertir el diccionario en una lista de arreglos de NumPy
+    data_array_list = list(Porcentajes.values())
+    return data_array_list
     
-    # ------------- GRAFICA
-    B = ['000', '001', '010', '011', '100', '101', '110', '111']
+    # # Convertir la lista en un arreglo de NumPy
+    # tpm = np.array(data_array_list)
 
-    # Crear un DataFrame de Pandas
-    df = pd.DataFrame({'Probabilidades': A, 'Estados': B})
+    # cm = np.array([
+    #     [0, 1, 1],
+    #     [1, 0, 1],
+    #     [1, 1, 0],
+    # ])
 
-    # Colores para las barras
-    colores = ['blue', 'green', 'red', 'purple', 'orange', 'brown', 'pink', 'gray']
+    # network = pyphi.Network(tpm, cm=cm, node_labels=['A', 'B', 'C'])
+    # state = (1,0,0)
+    # nodes = ('A', 'B', 'C')
+    # subsystem = pyphi.Subsystem(network, state, nodes)
 
-    # Graficar con Matplotlib
-    fig, ax = plt.subplots()
-    barras = ax.bar(df['Estados'], df['Probabilidades'], color=colores)
+    # A, B, C = subsystem.node_indices
 
-    # Mostrar las probabilidades dentro de las barras
-    for bar, prob in zip(barras, A):
-        height = bar.get_height()
-        ax.text(bar.get_x() + bar.get_width() / 2, height, f'{prob:.2f}', ha='center', va='bottom')
+    # mechanism = (A, B, C)
+    # purview = (A, C)
+    # mip = subsystem.effect_mip(mechanism, purview)
+    # print(mip)
+    
+    # mip_c = subsystem.cause_mip(mechanism, purview)
+    # print(mip_c)
 
-    plt.xlabel('Estados')
-    plt.ylabel('Probabilidades')
-    plt.title('Grafica de las probabilidades')
-    plt.show()
+    # ces = pyphi.compute.ces(subsystem)
+    # print(ces.labeled_mechanisms)
+
+    # sia = pyphi.compute.sia(subsystem)
+    # print(sia.phi)
+    # print(sia.cut)
 
 CrearEstados(CargarDatos()[0]);
+
+
+#----------------------------------------------------------------------------------------------------------------------
+# A = F.DivisionElementos("ABC/A=0",Porcentajes)    
+    # # ------------- GRAFICA
+    # B = ['000', '001', '010', '011', '100', '101', '110', '111']
+
+    # # Crear un DataFrame de Pandas
+    # df = pd.DataFrame({'Probabilidades': A, 'Estados': B})
+
+    # # Colores para las barras
+    # colores = ['blue', 'green', 'red', 'purple', 'orange', 'brown', 'pink', 'gray']
+
+    # # Graficar con Matplotlib
+    # fig, ax = plt.subplots()
+    # barras = ax.bar(df['Estados'], df['Probabilidades'], color=colores)
+
+    # # Mostrar las probabilidades dentro de las barras
+    # for bar, prob in zip(barras, A):
+    #     height = bar.get_height()
+    #     ax.text(bar.get_x() + bar.get_width() / 2, height, f'{prob:.2f}', ha='center', va='bottom')
+
+    # plt.xlabel('Estados')
+    # plt.ylabel('Probabilidades')
+    # plt.title('Grafica de las probabilidades')
+    # plt.show()
+    

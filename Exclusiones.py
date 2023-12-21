@@ -21,6 +21,7 @@ def ExcluirunFuturo(Futuro,Porcentajes):
                     posicion = 1
                 else:
                     posicion=0
+                    
     elif Futuro[0] == 'B':
         for Key,value in Porcentajes.items():
             Futuros[Key]=[]
@@ -142,7 +143,6 @@ def ExcluirVariosPresentes(llave,presentes,valores):
     differences = list(ndiff(presentes, 'ABC'))
     differences = [diff[2:] for diff in differences if diff.startswith('-') or diff.startswith('+')]
     return(AutomatizacionVP(Retorno,valores,ord(presentes.lower()) - 97))
-    
 
 def AutomatizacionVP(Retorno,valores,Posicion):
     llaves = {"0": [], "1": []}

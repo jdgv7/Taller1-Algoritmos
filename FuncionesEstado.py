@@ -72,15 +72,16 @@ def EstadoEstadoF(Array,Posiciones,Estados):
     for clave, lista_elementos in my_dic.items():
         if clave != 'Estado' and len(my_dic[clave]) !=0:
             total_estado = len(my_dic[clave])
-            valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) * 100 for elemento in my_dic['Estado']]
+            # valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) * 100 for elemento in my_dic['Estado']]
+            valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) for elemento in my_dic['Estado']]
             diccionario_normalizado_porcentaje[clave] = valores_normalizados_porcentaje
 
-    for x in diccionario_normalizado_porcentaje.keys():
-        print(x+str(diccionario_normalizado_porcentaje[x]))
-    return(diccionario_normalizado_porcentaje)
+    # for x in diccionario_normalizado_porcentaje.keys():
+    #     print(x+str(diccionario_normalizado_porcentaje[x]))
+    
+    return diccionario_normalizado_porcentaje
 
 # --------------------------------------------------------------------------------
-
 # Punto 3
 def EstadoCanalP(Array,Posiciones,tam):
     my_dic = {}
@@ -117,7 +118,7 @@ def EstadoCanalP(Array,Posiciones,tam):
 
     df.columns = proporcion_dict.keys()
     
-    # print(df)
+
     return(proporcion_dict)
     
 
@@ -151,11 +152,12 @@ def EstadoEstadoP(Array,Posiciones,elementos):
     for clave, lista_elementos in my_dic.items():
         if clave != 'Estado' and len(my_dic[clave]) !=0:
             total_estado = len(my_dic[clave])
-            valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) * 100 for elemento in my_dic['Estado']]
+            # valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) * 100 for elemento in my_dic['Estado']]
+            valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) for elemento in my_dic['Estado']]
             diccionario_normalizado_porcentaje[clave] = valores_normalizados_porcentaje
 
-    # for x in diccionario_normalizado_porcentaje.keys():
-    #     print(x+str(diccionario_normalizado_porcentaje[x]))
+    for x in diccionario_normalizado_porcentaje.keys():
+        print(x+str(diccionario_normalizado_porcentaje[x]))
     
     return(diccionario_normalizado_porcentaje)
     

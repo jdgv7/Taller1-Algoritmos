@@ -4,5 +4,6 @@ __pyphi_cache__
 .vscode/
 venv/
 *.py[cod]
-tests/
 pyphi.log
+
+# tests/
