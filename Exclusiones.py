@@ -166,7 +166,10 @@ def AutomatizacionVP(Retorno,valores,Posicion):
 
 def Multiplicar(Multiplicadores):
     tabla= []
-    print(Multiplicadores)
+    
+    # Imprime arrego de las multiplicaciones
+    # print(Multiplicadores)
+    
     for x,y in  Multiplicadores.items():
         tabla.append(Multiplicadores[x])
     if(len(tabla)==3):
@@ -179,3 +182,27 @@ def Multiplicar(Multiplicadores):
         for x in range(len(resultados)):
             resultados[x]=resultados[x]/100
         return resultados
+    
+def PresenteCero(Futuro):
+    Resultados ={}
+    Final = []
+    for x in range(len(Futuro['000'])):
+        Resultados[str(x)] = 0
+    for x in Futuro:
+        for y in range(len(Futuro[x])):
+            Resultados[str(y)] += Futuro[x][y]
+    for x in Resultados:
+        Resultados[str(x)] = Resultados[x]/8
+        Final.append(Resultados[str(x)])
+    return(Final)
+
+def EMD(Primera,Segunda):
+    emd = 0
+    for x in range(len(Primera)):
+        if Primera[x] !=0:
+            if Primera[x] > Segunda[x]:
+                emd += Primera[x]*0.01 - Segunda[x]*0.01
+            elif Segunda[x] > Primera[x]:
+                emd += Segunda[x]*0.01 - Primera[x]*0.01
+    print(str(emd)) 
+    return "ahi vamos"

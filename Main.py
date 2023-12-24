@@ -1,8 +1,12 @@
 import FuncionesEstado as F;
 import pandas as pd
-import matplotlib.pyplot as plt
-import pyphi
-import numpy as np
+import Exclusiones as E
+
+
+Entrada1 = [0,1,1,0,1,1,0,0,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1,0,0,0,1];
+Entrada2 = [0,0,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,1,0,1,1,0,1,1,1,1,0,0,0];
+Entrada3 = [0,1,0,1,0,1,0,1,0,1,1,0,1,1,0,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0];
+
 
 def CargarDatos():
     dataframe1 = pd.read_excel('Muestra7-8.xlsx', usecols="B:D",skiprows=[0,1],sheet_name="Muestra 8")
@@ -13,7 +17,7 @@ def CargarDatos():
     for x in range(len(dataframe1)):
         for y in range(len(dataframe1[0])):
             nuevos_arrays[y].append(dataframe1[x][y])
-    
+
     return[nuevos_arrays]
 
 def EncontrarPosiciones(Estados,Array):
@@ -26,7 +30,8 @@ def EncontrarPosiciones(Estados,Array):
             if ''.join(str(Array[i][x]) for i in range(len(Array))) == str(Valor):
                 Posiciones[m].append(x + 1)
     return Posiciones;
-    
+
+# Encontrar posiciones pasadas al canal dado
 def EncontrarPosicionesR(Posiciones):
     arregloR = []
     for sublista in Posiciones:
@@ -54,11 +59,47 @@ def CrearEstados(Array):
     Posiciones= EncontrarPosiciones(Estados,Array);  
     PosicionesR= EncontrarPosicionesR(Posiciones);
    
-    Porcentajes = F.EstadoEstadoF(Array,PosicionesR,Estados)
+    Porcentajes = F.EstadoEstadoF(Array,Posiciones,Estados)
          
+    Porcentajes = {'100':[0.0,0.0,0.0,0.0,100,0.0,0.0,0.0],'101':[0.0,0.0,0.0,0.0,0.0,0.0,0.0,100],'110':[0.0,100,0.0,0.0,0.0,0.0,0.0,0.0],'111':[0.0,0.0,0.0,100,0.0,0.0,0.0,0.0],'000':[100,0.0,0.0,0.0,0.0,0.0,0.0,0.0],'001':[0.0,100,0.0,0.0,0.0,0.0,0.0,0.0],'010':[0.0,0.0,0.0,0.0,0.0,100,0.0,0.0],'011':[0.0,0.0,0.0,0.0,0.0,100,0.0,0.0]}
+    
+    for x in Porcentajes.keys():
+        print(x+str(Porcentajes[x]))
+
+    Resultados = F.DivisionElementos("ABC/AC=10",Porcentajes)
+    print(Resultados)
+    PRIMERO = F.DivisionElementos("AB/AC=10",Porcentajes)
+    print(PRIMERO)
+    Segundo = F.DivisionElementos("C/0",Porcentajes)
+    print(Segundo)
+    Mul ={}
+    Mul['A']= PRIMERO
+    Mul['B']= Segundo
+    print(E.Multiplicar(Mul))
+    E.EMD(Resultados,E.Multiplicar(Mul))
+    
+    Resultados = F.DivisionElementos("ABC/ABC=100",Porcentajes)
+    print(Resultados)
+    print("-----------------------")
+    PRIMERO = F.DivisionElementos("AC/ABC=100",Porcentajes)
+    print(PRIMERO)
+    Segundo = F.DivisionElementos("B/0",Porcentajes)
+    print(Segundo)
+    Mul ={}
+    Mul['A']= PRIMERO
+    Mul['B']= Segundo
+    print(E.Multiplicar(Mul))
+    E.EMD(Resultados,E.Multiplicar(Mul))
+
+
+CrearEstados(CargarDatos()[0]);
+# CrearEstados([Entrada1,Entrada2,Entrada3]);
+
+
+  
+    # -----------------------------------------------------------------------------------------
     # Convertir el diccionario en una lista de arreglos de NumPy
-    data_array_list = list(Porcentajes.values())
-    return data_array_list
+    # data_array_list = list(Porcentajes.values())
     
     # # Convertir la lista en un arreglo de NumPy
     # tpm = np.array(data_array_list)
@@ -91,7 +132,9 @@ def CrearEstados(Array):
     # print(sia.phi)
     # print(sia.cut)
 
-CrearEstados(CargarDatos()[0]);
+
+
+
 
 
 #----------------------------------------------------------------------------------------------------------------------

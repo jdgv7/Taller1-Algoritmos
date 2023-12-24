@@ -72,8 +72,8 @@ def EstadoEstadoF(Array,Posiciones,Estados):
     for clave, lista_elementos in my_dic.items():
         if clave != 'Estado' and len(my_dic[clave]) !=0:
             total_estado = len(my_dic[clave])
-            # valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) * 100 for elemento in my_dic['Estado']]
-            valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) for elemento in my_dic['Estado']]
+            valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) * 100 for elemento in my_dic['Estado']]
+            # valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) for elemento in my_dic['Estado']]
             diccionario_normalizado_porcentaje[clave] = valores_normalizados_porcentaje
 
     # for x in diccionario_normalizado_porcentaje.keys():
@@ -118,12 +118,10 @@ def EstadoCanalP(Array,Posiciones,tam):
 
     df.columns = proporcion_dict.keys()
     
-
     return(proporcion_dict)
     
 
 # --------------------------------------------------------------------------------
-
 # Punto 4
 def EstadoEstadoP(Array,Posiciones,elementos):
     Estados=[["Estado",]]
@@ -152,30 +150,43 @@ def EstadoEstadoP(Array,Posiciones,elementos):
     for clave, lista_elementos in my_dic.items():
         if clave != 'Estado' and len(my_dic[clave]) !=0:
             total_estado = len(my_dic[clave])
-            # valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) * 100 for elemento in my_dic['Estado']]
-            valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) for elemento in my_dic['Estado']]
+            valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) * 100 for elemento in my_dic['Estado']]
+            # valores_normalizados_porcentaje = [(lista_elementos.count(elemento) / total_estado) for elemento in my_dic['Estado']]
             diccionario_normalizado_porcentaje[clave] = valores_normalizados_porcentaje
 
-    for x in diccionario_normalizado_porcentaje.keys():
-        print(x+str(diccionario_normalizado_porcentaje[x]))
+    # for x in diccionario_normalizado_porcentaje.keys():
+    #     print(x+str(diccionario_normalizado_porcentaje[x]))
     
     return(diccionario_normalizado_porcentaje)
     
 #Division De elemento
-
 def DivisionElementos(Operacion,Porcentajes):
     Operacion = Operacion.split("/")
     ElementosFuturos= Operacion[0]
-    ElementosPresente=Operacion[1].split("=")[0]
-    ValorPresente=Operacion[1].split("=")[1]
-    # print("Presente = "+ElementosPresente+", Valor = "+ValorPresente+", Futuro = "+ElementosFuturos)
+    #print(Operacion[1]+' / '+Operacion[0])
+    if(Operacion[1]!=str(0) and Operacion[0]!=str(0)):
+        ElementosPresente=Operacion[1].split("=")[0]
+        ValorPresente=Operacion[1].split("=")[1]
+    else:
+        ElementosPresente = Operacion[1]
+        ValorPresente = Operacion[1]
+    #print("Presente = "+ElementosPresente+", Valor = "+ValorPresente+", Futuro = "+ElementosFuturos)
     Casos = {}
     if(len(ElementosPresente)==3 and len(ElementosFuturos)==3):
         #print(Porcentajes[ValorPresente])
-        # print(Porcentajes)
+        #print(Porcentajes)
         return(Porcentajes[ValorPresente])
     else:
-        if(len(ElementosFuturos)!=3 and len(ElementosPresente)==3):
+        #print(ElementosFuturos+' / '+ElementosPresente)
+        if(ElementosPresente == str(0)):
+            if(len(ElementosFuturos)==3):
+                return(E.PresenteCero(Porcentajes))
+            else:
+                Final=E.ExcluirFuturo(ElementosFuturos,Porcentajes)
+                return(E.PresenteCero(Final))
+        elif(ElementosFuturos== str(0)):
+            E.FuturoCero(ElementosPresente)
+        elif(len(ElementosFuturos)!=3 and len(ElementosPresente)==3):
             Casos=E.ExcluirFuturo(ElementosFuturos,Porcentajes)
             #print(Casos[ValorPresente])
             return(Casos[ValorPresente])
