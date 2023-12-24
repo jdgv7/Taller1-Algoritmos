@@ -1,4 +1,5 @@
 import FuncionesEstado as F;
+import Exclusiones as E;
 import pandas as pd
 
 Entrada1 = [0,1,1,0,1,1,0,0,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1,0,0,0,1];
@@ -66,8 +67,19 @@ def CrearEstados(Array):
     #Porcentajes = F.EstadoCanalP(Array,Posiciones,len(Array))
 
     # Punto 4
-    Porcentajes = F.EstadoEstadoP(Array,PosicionesR,Estados)
-    print(F.DivisionElementos("ABC/0",Porcentajes))
+    #Porcentajes = F.EstadoEstadoP(Array,PosicionesR,Estados)
+    Porcentajes = {'100':[0.0,0.0,0.0,0.0,100,0.0,0.0,0.0],'101':[0.0,0.0,0.0,0.0,0.0,0.0,0.0,100],'110':[0.0,100,0.0,0.0,0.0,0.0,0.0,0.0],'111':[0.0,0.0,0.0,100,0.0,0.0,0.0,0.0],'000':[100,0.0,0.0,0.0,0.0,0.0,0.0,0.0],'001':[0.0,100,0.0,0.0,0.0,0.0,0.0,0.0],'010':[0.0,0.0,0.0,0.0,0.0,100,0.0,0.0],'011':[0.0,0.0,0.0,0.0,0.0,100,0.0,0.0]}
+    Resultados = F.DivisionElementos("ABC/AC=10",Porcentajes)
+    print(Resultados)
+    PRIMERO = F.DivisionElementos("AB/AC=10",Porcentajes)
+    print(PRIMERO)
+    Segundo = F.DivisionElementos("C/0",Porcentajes)
+    print(Segundo)
+    Mul ={}
+    Mul['A']= PRIMERO
+    Mul['B']= Segundo
+    print(E.Multiplicar(Mul))
+    E.EMD(Resultados,E.Multiplicar(Mul))
 CrearEstados(CargarDatos()[0]);
 #CrearEstados([Entrada1,Entrada2,Entrada3]);
 

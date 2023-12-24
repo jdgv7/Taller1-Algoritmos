@@ -164,7 +164,7 @@ def EstadoEstadoP(Array,Posiciones,elementos):
 def DivisionElementos(Operacion,Porcentajes):
     Operacion = Operacion.split("/")
     ElementosFuturos= Operacion[0]
-    print(Operacion[1]+' / '+Operacion[0])
+    #print(Operacion[1]+' / '+Operacion[0])
     if(Operacion[1]!=str(0) and Operacion[0]!=str(0)):
         ElementosPresente=Operacion[1].split("=")[0]
         ValorPresente=Operacion[1].split("=")[1]
@@ -175,10 +175,10 @@ def DivisionElementos(Operacion,Porcentajes):
     Casos = {}
     if(len(ElementosPresente)==3 and len(ElementosFuturos)==3):
         #print(Porcentajes[ValorPresente])
-        print(Porcentajes)
+        #print(Porcentajes)
         return(Porcentajes[ValorPresente])
     else:
-        print(ElementosFuturos+' / '+ElementosPresente)
+        #print(ElementosFuturos+' / '+ElementosPresente)
         if(ElementosPresente == str(0)):
             if(len(ElementosFuturos)==3):
                 return(E.PresenteCero(Porcentajes))

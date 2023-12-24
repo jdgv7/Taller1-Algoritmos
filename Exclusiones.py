@@ -94,7 +94,6 @@ def ExcluirUnPresente(llave,presente,valores):
     Retorno={}
     differences = list(ndiff(presente, 'ABC'))
     differences = [diff[2:] for diff in differences if diff.startswith('-') or diff.startswith('+')]
-    print("Excluire a "+str(presente)+" De los valores "+str(differences))
     if differences[0]=='A':
         for Key,value in valores.items():
             if(not(Key[1:3] in Retorno)):
@@ -188,7 +187,7 @@ def FuturoCero(Presente):
     
 def PresenteCero(Futuro):
     Resultados ={}
-    Final = {}
+    Final = []
     for x in range(len(Futuro['000'])):
         Resultados[str(x)] = 0
     for x in Futuro:
@@ -196,4 +195,16 @@ def PresenteCero(Futuro):
             Resultados[str(y)] += Futuro[x][y]
     for x in Resultados:
         Resultados[str(x)] = Resultados[x]/8
-    return(Resultados)
+        Final.append(Resultados[str(x)])
+    return(Final)
+
+def EMD(Primera,Segunda):
+    emd = 0
+    for x in range(len(Primera)):
+        if Primera[x] !=0:
+            if Primera[x] > Segunda[x]:
+                emd += Primera[x]*0.01 - Segunda[x]*0.01
+            elif Segunda[x] > Primera[x]:
+                emd += Segunda[x]*0.01 - Primera[x]*0.01
+    print(str(emd)) 
+    return "ahi vamos"
